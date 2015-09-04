@@ -5,7 +5,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import sun.beans.editors.IntEditor;
 import sv.com.tecnoin.seguridad.controlador.RolController;
+import sv.com.tecnoin.seguridad.controlador.RolSistemaController;
+import sv.com.tecnoin.seguridad.controlador.SistemaController;
 import sv.com.tecnoin.seguridad.entidad.Opcion;
 import sv.com.tecnoin.seguridad.entidad.Rol;
 import sv.com.tecnoin.seguridad.entidad.RolSistema;
@@ -15,11 +18,10 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.UrlBinding;
 
-
 /**
  * 
  * @author kpalacios
- *
+ * 
  */
 @UrlBinding("/acciones/sistemaOpcion")
 public class mandoSistemaAction extends BaseActionBean {
@@ -27,7 +29,7 @@ public class mandoSistemaAction extends BaseActionBean {
 	private List<Opcion> opcionList;
 	private List<Rol> rolList;
 	private RolSistema rolSistema;
-	private List<RolSistema> verRolesList;
+	private List<RolSistema> rolesSistemaList;
 	Sistema sistemaSelected = new Sistema();
 
 	public mandoSistemaAction() {
@@ -39,7 +41,8 @@ public class mandoSistemaAction extends BaseActionBean {
 		rolList = new ArrayList<Rol>();
 		sistemaSelected = new Sistema();
 		try {
-			String idSistema = getContext().getRequest().getParameter("idSistema");
+			String idSistema = getContext().getRequest().getParameter(
+					"idSistema");
 			String nombre = getContext().getRequest().getParameter("nombre");
 			if (idSistema != null) {
 				Sistema sis = new Sistema();
@@ -52,8 +55,8 @@ public class mandoSistemaAction extends BaseActionBean {
 			rolList = nc.findAll();
 			sistemaSelected = (Sistema) session.getAttribute("sistemaSelected");
 			RolSistema r = new RolSistema();
-			//r.s(sistemaSelected.getIdSistema());
-			//verRolesList = nc.findByIDSistema(r);
+			// r.s(sistemaSelected.getIdSistema());
+			// verRolesList = nc.findByIDSistema(r);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -63,6 +66,21 @@ public class mandoSistemaAction extends BaseActionBean {
 		ForwardResolution f = new ForwardResolution("/app/sistemaOpcion.jsp");
 		return f;
 
+	}
+
+	public Resolution buscar() {
+		String nombre = getContext().getRequest()
+				.getParameter("nombreBusqueda");
+		try {
+			RolController rController = new RolController();
+			rolList = rController.findByName(nombre);
+		} catch (Exception e) {
+			mensajeError("Error a realizar la busqueda");
+			;
+		}
+		ForwardResolution f = new ForwardResolution("/app/sistemaOpcion.jsp");
+
+		return f;
 	}
 
 	public Resolution agregar() {
@@ -75,11 +93,12 @@ public class mandoSistemaAction extends BaseActionBean {
 
 		if (id == null || "0".equals(id) || id.isEmpty()) {
 			try {
-				System.err.println("Agregar Sistema....");
+				System.out.println("Agregar Sistema....");
 				rolSistema = new RolSistema();
-				//rolSistema.setIdRol(Integer.parseInt(id));
-				//rolSistema.setIdSistema(sistemaSelected.getIdSistema());
-
+				RolSistemaController rsController = new RolSistemaController();
+				rolSistema.setRol(new Rol(Integer.parseInt(id)));
+				rolSistema.setSistema(sistemaSelected);
+				rsController.insert(rolSistema);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -109,12 +128,12 @@ public class mandoSistemaAction extends BaseActionBean {
 		this.rolList = rolList;
 	}
 
-	public List<RolSistema> getVerRolesList() {
-		return verRolesList;
+	public List<RolSistema> getRolesSistemaList() {
+		return rolesSistemaList;
 	}
 
-	public void setVerRolesList(List<RolSistema> verRolesList) {
-		this.verRolesList = verRolesList;
+	public void setVerRolesList(List<RolSistema> rolesSistemaList) {
+		this.rolesSistemaList = rolesSistemaList;
 	}
 
 }

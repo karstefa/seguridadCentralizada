@@ -29,10 +29,11 @@
 				data-toggle="modal" data-target="#myModal"
 				onclick="validar('frmRoles')">
 				<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-				Ver Roles Asignados al sistema
+				Asignados Rol al Sistema
 			</button>
 			<br> <br>
 		</div>
+
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -42,25 +43,15 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:if test="${actionBean.rolList != null}">
-					<c:forEach items="${actionBean.rolList}" var="r">
+				<c:if test="${actionBean.verRolesList != null}">
+					<c:forEach items="${actionBean.verRolesList}" var="ver">
 						<stripes:form
-							beanclass="sv.com.tecnoin.seguridad.accion.mandoSistemaAction">
+							beanclass="sv.com.tecnoin.seguridad.accion.mandoSistemaAction"
+							class="formValidacion" id="frmRoles">
 							<tr>
-								<td>${r.nombre}</td>
-								<td>${r.descripcion}</td>
-								<td>${r.estado}</td>
-								<td>
-									<div class="bbtn-group btn-group-xs" role="group">
-										<button id="${r.idRol}" type="submit"
-											class="btn btn-info btn-xs" name="agregar">
-											<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-											Asignar Rol al Sistema
-										</button>
-										<input type="hidden" id="idRol" name="idRol"
-											value="${r.idRol}" />
-									</div>
-								</td>
+								<td>${ver.nombre}</td>
+								<td>${ver.descripcion}</td>
+								<td>${ver.estado}</td>
 							</tr>
 						</stripes:form>
 					</c:forEach>
@@ -76,6 +67,16 @@
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					</div>
 					<div class="modal-body">
+						<stripes:form
+							beanclass="sv.com.tecnoin.seguridad.accion.mandoSistemaAction">
+							<div class="input-group">
+								<input name="nombreBusqueda" type="text" class="form-control"
+									placeholder="Nombre del Rol..."> <span
+									class="input-group-btn"> <stripes:submit name="buscar"
+										class="btn btn-default" value="Buscar" />
+								</span>
+							</div>
+						</stripes:form>
 						<table class="table table-hover">
 							<thead>
 								<tr>
@@ -85,15 +86,25 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:if test="${actionBean.verRolesList != null}">
-									<c:forEach items="${actionBean.verRolesList}" var="ver">
+								<c:if test="${actionBean.rolList != null}">
+									<c:forEach items="${actionBean.rolList}" var="r">
 										<stripes:form
-											beanclass="sv.com.tecnoin.seguridad.accion.mandoSistemaAction"
-											class="formValidacion" id="frmRoles">
+											beanclass="sv.com.tecnoin.seguridad.accion.mandoSistemaAction">
 											<tr>
-												<td>${ver.nombre}</td>
-												<td>${ver.descripcion}</td>
-												<td>${ver.estado}</td>
+												<td>${r.nombre}</td>
+												<td>${r.descripcion}</td>
+												<td>${r.estado}</td>
+												<td>
+													<div class="bbtn-group btn-group-xs" role="group">
+														<button id="${r.idRol}" type="submit"
+															class="btn btn-info btn-xs" name="agregar">
+															<span class="glyphicon glyphicon-pencil"
+																aria-hidden="true"></span> Asignar Rol al Sistema
+														</button>
+														<input type="hidden" id="idRol" name="idRol"
+															value="${r.idRol}" />
+													</div>
+												</td>
 											</tr>
 										</stripes:form>
 									</c:forEach>

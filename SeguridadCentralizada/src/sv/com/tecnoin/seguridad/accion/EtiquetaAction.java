@@ -96,13 +96,12 @@ public class EtiquetaAction extends BaseActionBean {
 	}
 
 	public Resolution borrar() {
-		System.err.println("Borrar etiqueta...");
-		etiqueta = new Etiqueta();
+		System.out.println("Borrar etiqueta...");
 		int idEtiqueta = Integer.parseInt(getContext().getRequest().getParameter("idEtiquetaDelete"));
-		etiqueta.setIdEtiqueta(idEtiqueta);
 		EtiquetaController nc3 = new EtiquetaController();
+		Etiqueta et = nc3.findBy(idEtiqueta);
 		try {
-			nc3.delete(etiqueta);
+			nc3.delete(et);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

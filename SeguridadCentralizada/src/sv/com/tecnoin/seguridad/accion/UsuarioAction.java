@@ -120,13 +120,12 @@ public class UsuarioAction extends BaseActionBean {
 	}
 
 	public Resolution borrar() {
-		System.err.println("Borrar usuario...");
-		usu = new Usuario();
+		System.out.println("Borrar usuario...");
 		int idUsuario = Integer.parseInt(getContext().getRequest().getParameter("idUsuarioDelete"));
-		usu.setIdUsuario(idUsuario);
 		UsuarioController nc3 = new UsuarioController();
+		Usuario u = nc3.findBy(idUsuario);
 		try {
-			nc3.delete(usu);
+			nc3.delete(u);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

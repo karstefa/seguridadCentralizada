@@ -4,23 +4,20 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the ROL database table.
  * 
  */
 @Entity
-@Table(name="ROL")
-
+@Table(name = "ROL")
 @NamedQueries({
-	@NamedQuery(name="Rol.findAll", query="SELECT r FROM Rol r"), 
-	@NamedQuery(name="Rol.findByName", query="SELECT r FROM Rol r where r.nombre like '%:nombre%'")})
-
+		@NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r"),
+		@NamedQuery(name = "Rol.findByName", query = "SELECT r FROM Rol r where r.nombre like '%:nombre%'") })
 public class Rol implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idRol;
 
 	private String descripcion;
@@ -29,11 +26,16 @@ public class Rol implements Serializable {
 
 	private String nombre;
 
-	//bi-directional many-to-one association to RolSistema
-	@OneToMany(mappedBy="rol")
+	// bi-directional many-to-one association to RolSistema
+	@OneToMany(mappedBy = "rol")
 	private List<RolSistema> rolSistemas;
 
 	public Rol() {
+	}
+
+	public Rol(int idRol) {
+		super();
+		this.idRol = idRol;
 	}
 
 	public int getIdRol() {

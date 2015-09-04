@@ -102,13 +102,12 @@ public class SistemaAction extends BaseActionBean {
 	}
 
 	public Resolution borrar() {
-		System.err.println("Borrar sistema...");
-		sistema = new Sistema();
+		System.out.println("Borrar sistema...");
 		int idSistema = Integer.parseInt(getContext().getRequest().getParameter("idSistemaDelete"));
-		sistema.setIdSistema(idSistema);
 		SistemaController nc3 = new SistemaController();
 		try {
-			nc3.delete(sistema);
+			Sistema s = nc3.findBy(idSistema);
+			nc3.delete(s);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
