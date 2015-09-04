@@ -1,10 +1,11 @@
 package sv.com.tecnoin.seguridad.controlador;
 
-public class RolSistemaUsuarioEtiquetaController extends AbstractController{
+import sv.com.tecnoin.seguridad.entidad.RolSistemaUsuarioEtiqueta;
 
-	public RolSistemaUsuarioEtiquetaController(Class clase) {
-		super(clase);
-		// TODO Auto-generated constructor stub
+public class RolSistemaUsuarioEtiquetaController extends AbstractController<RolSistemaUsuarioEtiqueta>{
+
+	public RolSistemaUsuarioEtiquetaController() {
+		super(RolSistemaUsuarioEtiqueta.class);
 	}
 
 	@Override

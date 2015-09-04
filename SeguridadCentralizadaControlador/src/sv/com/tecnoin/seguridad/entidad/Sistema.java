@@ -11,7 +11,9 @@ import java.util.List;
  */
 @Entity
 @Table(name="SISTEMA")
-@NamedQuery(name="Sistema.findAll", query="SELECT s FROM Sistema s")
+@NamedQueries({@NamedQuery(name="Sistema.findAll", query="SELECT s FROM Sistema s"),
+	@NamedQuery(name="Sistema.findByName", query="SELECT s FROM Sistema s where s.nombre like '%:nombre%'")})
+
 public class Sistema implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -2,6 +2,9 @@ package sv.com.tecnoin.seguridad.controlador;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
 import sv.com.tecnoin.seguridad.entidad.Usuario;
 
 public class UsuarioController extends AbstractController<Usuario> {
@@ -18,28 +21,35 @@ public class UsuarioController extends AbstractController<Usuario> {
 
 	public Usuario autenticarUsuario(Usuario usuario) {
 		Usuario u = new Usuario();
+		EntityManager em = getEntityManager();
 		try {
-			Query q = getEntityManager().createNamedQuery("Usuario", Usuario.class);
+			Query q = em.createNamedQuery("Usuario.findUserPass", Usuario.class);
+			q.setParameter("usuario", usuario.getUsuario());
+			q.setParameter("clave", usuario.getClave());
+			return (Usuario) q.getSingleResult();
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
+		}finally{
+			em.close();
 		}
-		return null;
 	}
 
-
-	public Usuario validaUsuarioExiste(String user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public List<Usuario> findByName(String nombre) {
-		// TODO Auto-generated method stub
-		return null;
+		Usuario u = new Usuario();
+		EntityManager em = getEntityManager();
+		try {
+			Query q = em.createNamedQuery("Usuario.findUserPass", Usuario.class);
+			q.setParameter("nombre", nombre);
+			return q.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			em.close();
+		}
 	}
 
-	public void updateByClave(Usuario usu) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

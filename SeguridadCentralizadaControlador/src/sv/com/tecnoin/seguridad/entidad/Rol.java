@@ -11,7 +11,11 @@ import java.util.List;
  */
 @Entity
 @Table(name="ROL")
-@NamedQuery(name="Rol.findAll", query="SELECT r FROM Rol r")
+
+@NamedQueries({
+	@NamedQuery(name="Rol.findAll", query="SELECT r FROM Rol r"), 
+	@NamedQuery(name="Rol.findByName", query="SELECT r FROM Rol r where r.nombre like '%:nombre%'")})
+
 public class Rol implements Serializable {
 	private static final long serialVersionUID = 1L;
 

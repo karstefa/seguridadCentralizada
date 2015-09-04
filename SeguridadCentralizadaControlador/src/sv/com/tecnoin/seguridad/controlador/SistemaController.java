@@ -2,6 +2,9 @@ package sv.com.tecnoin.seguridad.controlador;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
 import sv.com.tecnoin.seguridad.entidad.Sistema;
 import sv.com.tecnoin.seguridad.entidad.Usuario;
 
@@ -13,18 +16,24 @@ public class SistemaController extends AbstractController <Sistema>{
 
 	@Override
 	public String getNamePersistenceUnit() {
-		// TODO Auto-generated method stub
-		return null;
+		return "SeguridadCentralizadaControlador";
 	}
 
-	public List<Sistema> findAllByOpcionRol(Usuario u) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	public List<Sistema> findByName(String nombre) {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager em = getEntityManager();
+		try{
+			Query q = em.createNativeQuery("Sistema.findByName",Sistema.class);
+			q.setParameter("nombre", nombre);
+			return q.getResultList();
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}finally{
+			em.close();
+		}
+		
 	}
 
 }
