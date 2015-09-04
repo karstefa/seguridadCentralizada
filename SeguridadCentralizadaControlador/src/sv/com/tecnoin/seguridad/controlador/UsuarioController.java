@@ -51,5 +51,20 @@ public class UsuarioController extends AbstractController<Usuario> {
 		}
 	}
 
+	public Usuario validaUsuarioExiste(String user) {
+		Usuario u = new Usuario();
+		EntityManager em = getEntityManager();
+		try {
+			Query q = em.createNamedQuery("Usuario.findByUser", Usuario.class);
+			q.setParameter("usuario", user);
+			return (Usuario) q.getSingleResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			em.close();
+		}
+	}
+
 
 }
