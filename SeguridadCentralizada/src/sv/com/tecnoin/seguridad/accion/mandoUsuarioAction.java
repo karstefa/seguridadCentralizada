@@ -53,7 +53,7 @@ public class mandoUsuarioAction extends BaseActionBean {
 			Usuario u = (Usuario) session.getAttribute("usuarioSelected");
 			sistemaList = sc.findAll();
 			rolList = rc.findAll();
-			sistemaByOpcList = sc.findAllByOpcionRol(u);
+			//sistemaByOpcList = sc.findAllByOpcionRol(u);
 		} catch (Exception e) {
 			mensajeError("Error a realizar la busqueda");
 		}

@@ -53,7 +53,7 @@ public class mandoSistemaAction extends BaseActionBean {
 			sistemaSelected = (Sistema) session.getAttribute("sistemaSelected");
 			RolSistema r = new RolSistema();
 			//r.s(sistemaSelected.getIdSistema());
-			verRolesList = nc.findByIDSistema(r);
+			//verRolesList = nc.findByIDSistema(r);
 
 		} catch (Exception e) {
 			e.printStackTrace();

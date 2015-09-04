@@ -3,6 +3,7 @@
 	<name>SeguridadCentralizada</name>
 	<comment></comment>
 	<projects>
+		<project>SeguridadCentralizadaControlador</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

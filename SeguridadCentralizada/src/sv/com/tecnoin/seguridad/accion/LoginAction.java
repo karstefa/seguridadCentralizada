@@ -99,7 +99,7 @@ public class LoginAction extends BaseActionBean {
 				if (usu.getUsuario().equals(user)) {
 					String passDefault = encriptacion.getMD5(Constantes.CLAVE_DEFAULT);
 					usu.setClave(passDefault);
-					unc.updateByClave(usu);
+					unc.update(usu);
 					mensajeInfo("Su nueva clave es: " + Constantes.CLAVE_DEFAULT);
 				} else {
 					mensajeError("El usuario no esta registrado");
